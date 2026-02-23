@@ -11,6 +11,11 @@ const  EnquerySchema = new mongoose.Schema({
       type: String,
       match: [/^[6-9][0-9]{9}$/, "Please enter a valid 10-digit mobile number"]
     },
+    enqueryfor:{
+     type:{
+        type:String,
+      }
+    },
     message:{
         type:String
     }

@@ -6,7 +6,7 @@ const Sendenquery = async (req, res) => {
   try {
     
 
-    const { fullname, email, phone, message } = req.body;
+    const { fullname, email, phone, message ,enqueryfor} = req.body;
 
     // Validation
     if (!fullname || !email) {
@@ -21,7 +21,8 @@ const Sendenquery = async (req, res) => {
       fullname,
       email,
       phone,
-      message
+      message,
+      enqueryfor
     });
 
     await enquery.save();
@@ -48,8 +49,10 @@ const Sendenquery = async (req, res) => {
           </div>
           <div style="padding:20px;">
             <p><b>Name:</b> ${fullname}</p>
+            
             <p><b>Email:</b> ${email}</p>
             <p><b>Phone:</b> ${phone || "Not provided"}</p>
+             <p><b>Enquiry For:</b> ${enqueryfor}</p>
             <p><b>Message:</b> ${message || "No message"}</p>
           </div>
         </div>
