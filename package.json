@@ -1,21 +1,17 @@
 {
+  "name": "prxindiabackend",
+  "version": "1.0.0",
+  "description": "PRX India Backend",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongodb": "^7.1.0",
     "mongoose": "^9.2.1",
     "nodemailer": "^8.0.1"
-  },
-  "name": "prxindiabackend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "start": "npx nodemon src/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  }
 }
