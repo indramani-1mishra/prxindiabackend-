@@ -1,12 +1,30 @@
-const mongoose = require('mongoose');
-const { Mongourl } = require('./envconfig');
+const mongoose = require("mongoose");
+const { Mongourl } = require("./envconfig");
 
-const connectdb =async()=>{
-    try{
-     await mongoose.connect(Mongourl);
-     console.log("database is connected successfully ....")
-    }catch(error){
-      console.log("error in connect to database due to "+error);
-    }
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
 }
-module.exports=connectdb;
+
+const connectdb = async () => {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(Mongourl, {
+        bufferCommands: false,
+      })
+      .then((mongoose) => {
+        console.log("MongoDB connected");
+        return mongoose;
+      });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+};
+
+module.exports = connectdb;
