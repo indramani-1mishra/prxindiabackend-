@@ -1,38 +1,40 @@
 const express = require("express");
 const cors = require("cors");
+const { Port } = require("./config/envconfig");
 const connectdb = require("./config/dbconfig");
 const ApiRouter = require("./router/api/api");
 
 const app = express();
 
-/* ✅ DB connect (once) */
-connectdb();
-
-/* ✅ CORS */
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://prxindia.com"
-  ],
-  methods: ["GET", "POST"],
+  origin: ["http://localhost:5173","https://prxindia.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* ✅ Routes */
 app.use("/api", ApiRouter);
 
-/* ✅ Health check */
-app.get("/", (req, res) => {
-  res.json({ message: "server is running ..." });
-});
 
-/* ✅ 404 */
+app.get("/",(req,res)=>{
+  return res.json({
+    message:"server is running ..."
+  })
+})
+
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-/* ✅ EXPORT FOR VERCEL */
-module.exports = app;
+
+app.listen(Port, async () => {
+  try {
+    await connectdb();
+    console.log("MongoDB Connected");
+    console.log(`Server running at http://localhost:${Port}`);
+  } catch (err) {
+    console.error("Server startup failed", err);
+  }
+});
