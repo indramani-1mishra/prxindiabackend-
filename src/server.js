@@ -24,6 +24,11 @@ app.get("/", (req, res) => {
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
+app.use("/",(req,res)=>{
+  return res.json({
+    message:"server is running ..."
+  })
+})
 
 app.listen(Port, async () => {
   try {
