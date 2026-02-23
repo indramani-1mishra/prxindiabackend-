@@ -17,18 +17,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", ApiRouter);
 
-app.get("/", (req, res) => {
-  res.send(/* same styled HTML */);
-});
 
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
-app.use("/",(req,res)=>{
+app.get("/",(req,res)=>{
   return res.json({
     message:"server is running ..."
   })
 })
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
 
 app.listen(Port, async () => {
   try {
